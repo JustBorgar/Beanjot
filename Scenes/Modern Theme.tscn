@@ -1,0 +1,319 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsw53mdks4m7w"]
+
+[ext_resource type="Texture2D" uid="uid://c6vj5oxjcs62h" path="res://Assets/Feather Icons/file.svg" id="1_12r6b"]
+[ext_resource type="Texture2D" uid="uid://34q0i5o1dnxc" path="res://Assets/Beanjot Logo.png" id="1_fxisb"]
+[ext_resource type="Texture2D" uid="uid://coaxhegdk1hcj" path="res://Assets/Feather Icons/sliders.svg" id="2_s0e0e"]
+[ext_resource type="Texture2D" uid="uid://cry10hykeg28e" path="res://Assets/Feather Icons/info.svg" id="3_4c8u0"]
+[ext_resource type="Texture2D" uid="uid://d22n1krkl867u" path="res://Assets/Feather Icons/code.svg" id="5_ahkyc"]
+[ext_resource type="Texture2D" uid="uid://clpgwa2b73ud6" path="res://Assets/Feather Icons/pen-tool.svg" id="6_yq6ty"]
+[ext_resource type="Texture2D" uid="uid://c16ngtg5gdwpj" path="res://Assets/Feather Icons/layout.svg" id="7_josu7"]
+
+[node name="Modern" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[node name="MenuColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 85.0
+grow_vertical = 2
+color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[node name="TextEdit" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/background_color = Color(0.145098, 0.145098, 0.14902, 1)
+placeholder_text = "Type here..."
+scroll_smooth = true
+
+[node name="MenuBar" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 85.0
+offset_bottom = 600.0
+
+[node name="File" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "File
+"
+icon = ExtResource("1_12r6b")
+alignment = 0
+expand_icon = true
+item_count = 11
+popup/item_0/text = "New File"
+popup/item_0/id = 0
+popup/item_1/text = "Import File"
+popup/item_1/id = 1
+popup/item_2/text = "Export File"
+popup/item_2/id = 2
+popup/item_3/text = "Export File As"
+popup/item_3/id = 3
+popup/item_4/text = "Delete File"
+popup/item_4/id = 4
+popup/item_5/text = "Rename File"
+popup/item_5/id = 5
+popup/item_6/text = ""
+popup/item_6/id = 6
+popup/item_6/disabled = true
+popup/item_6/separator = true
+popup/item_7/text = "Wrap Text"
+popup/item_7/checkable = 1
+popup/item_7/id = 7
+popup/item_8/text = "Language"
+popup/item_8/id = 8
+popup/item_9/text = ""
+popup/item_9/id = 9
+popup/item_9/disabled = true
+popup/item_9/separator = true
+popup/item_10/text = "Close Beanjot"
+popup/item_10/id = 10
+
+[node name="Import" type="FileDialog" parent="MenuBar/File"]
+title = "Open a File"
+position = Vector2i(130, 230)
+size = Vector2i(336, 162)
+popup_window = true
+ok_button_text = "Abrir"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.txt", "*.gd", "*.lua")
+
+[node name="Export" type="FileDialog" parent="MenuBar/File"]
+position = Vector2i(75, 230)
+size = Vector2i(456, 162)
+popup_window = true
+access = 2
+filters = PackedStringArray("*.txt", "*.gd", "*.lua")
+
+[node name="Delete" type="ConfirmationDialog" parent="MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to delete this file? This action cannot be undone."
+dialog_autowrap = true
+
+[node name="Create" type="ConfirmationDialog" parent="MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to create a new file? All your unsaved changes will be lost."
+dialog_autowrap = true
+
+[node name="Close" type="ConfirmationDialog" parent="MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to close Beanjot? All your unsaved changes will be lost."
+dialog_autowrap = true
+
+[node name="Rename" type="Window" parent="MenuBar/File"]
+title = "Rename File..."
+position = Vector2i(180, 250)
+size = Vector2i(250, 60)
+visible = false
+unresizable = true
+always_on_top = true
+popup_window = true
+
+[node name="Input" type="LineEdit" parent="MenuBar/File/Rename"]
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 225.0
+offset_bottom = 50.0
+placeholder_text = "New File Name..."
+max_length = 50
+
+[node name="Edit" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "Edit"
+icon = ExtResource("2_s0e0e")
+alignment = 0
+expand_icon = true
+item_count = 10
+popup/item_0/text = "Undo"
+popup/item_0/id = 0
+popup/item_1/text = "Redo"
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "Cut"
+popup/item_3/id = 3
+popup/item_4/text = "Copy"
+popup/item_4/id = 4
+popup/item_5/text = "Paste"
+popup/item_5/id = 5
+popup/item_6/text = ""
+popup/item_6/id = 6
+popup/item_6/separator = true
+popup/item_7/text = "Select All"
+popup/item_7/id = 7
+popup/item_8/text = "Deselect"
+popup/item_8/id = 8
+popup/item_9/text = "Clear"
+popup/item_9/id = 9
+
+[node name="About" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "About"
+icon = ExtResource("3_4c8u0")
+alignment = 0
+expand_icon = true
+item_count = 1
+popup/item_0/text = "About Beanjot"
+popup/item_0/id = 0
+
+[node name="AboutPopup" type="Window" parent="MenuBar/About"]
+title = "About Beanjot"
+position = Vector2i(50, 150)
+size = Vector2i(500, 300)
+visible = false
+unresizable = true
+always_on_top = true
+popup_window = true
+
+[node name="Icon" type="TextureRect" parent="MenuBar/About/AboutPopup"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 10.0
+offset_right = 455.0
+offset_bottom = 710.0
+grow_horizontal = 2
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("1_fxisb")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Text" type="RichTextLabel" parent="MenuBar/About/AboutPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = 10.0
+offset_right = 240.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 15
+theme_override_font_sizes/bold_font_size = 15
+theme_override_font_sizes/italics_font_size = 15
+theme_override_font_sizes/bold_italics_font_size = 15
+theme_override_font_sizes/mono_font_size = 15
+text = "This app was made in a weekend as a learning project to explore the capabilities of Godot. It's a lightweight text editor designed to simplify your writing and coding experience.
+
+It lets you effortlessly create and manage plain text documents, and although pretty limited, it lets you manage lua and gdscript code as well (unless you are seeing this which means this is the pre-release version).
+
+If you come across any issues feel free to reach out."
+autowrap_mode = 2
+shortcut_keys_enabled = false
+
+[node name="Mode" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "Mode"
+icon = ExtResource("5_ahkyc")
+expand_icon = true
+item_count = 2
+popup/item_0/text = "Writting"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Coding"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+
+[node name="Theme" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "Theme"
+icon = ExtResource("6_yq6ty")
+expand_icon = true
+item_count = 6
+popup/item_0/text = "Caffeine"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Godette"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+popup/item_2/text = "Bonfire"
+popup/item_2/checkable = 1
+popup/item_2/id = 2
+popup/item_3/text = "Boccher"
+popup/item_3/checkable = 1
+popup/item_3/id = 3
+popup/item_4/text = "Mortadela"
+popup/item_4/checkable = 1
+popup/item_4/id = 4
+popup/item_5/text = "Custom"
+popup/item_5/checkable = 1
+popup/item_5/id = 5
+
+[node name="Layout" type="MenuButton" parent="MenuBar"]
+layout_mode = 2
+text = "Layout"
+icon = ExtResource("7_josu7")
+expand_icon = true
+item_count = 2
+popup/item_0/text = "Classic"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Modern"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -23.0
+offset_right = 79.0
+offset_bottom = -3.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "V0.4.2 (WIP)
+"
+vertical_alignment = 1
+
+[node name="Copyright" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -211.0
+offset_top = -24.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "Copyright © 2023 Caffeine Overflow
+"
+vertical_alignment = 1

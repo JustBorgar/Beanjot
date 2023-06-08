@@ -10,3 +10,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_erg4c")
+
+[node name="Version" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -23.0
+offset_right = 79.0
+offset_bottom = -3.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "V0.7.0 (Beta)
+"
+vertical_alignment = 1
+
+[node name="Copyright" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -211.0
+offset_top = -24.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "Copyright © 2023 Caffeine Overflow
+"
+vertical_alignment = 1

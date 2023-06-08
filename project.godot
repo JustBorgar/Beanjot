@@ -23,6 +23,11 @@ config/windows_native_icon="res://Assets/icon.ico"
 window/size/viewport_width=600
 window/size/viewport_height=600
 
+[internationalization]
+
+locale/translation_remaps={}
+locale/translations=PackedStringArray("res://Localization/Beanjot Localization.en.translation", "res://Localization/Beanjot Localization.es.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

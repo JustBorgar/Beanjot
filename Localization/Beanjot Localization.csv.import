@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bpws0phhiubxg"
+
+[deps]
+
+files=["res://Localization/Beanjot Localization.context.translation", "res://Localization/Beanjot Localization.en.translation", "res://Localization/Beanjot Localization.es.translation"]
+
+source_file="res://Localization/Beanjot Localization.csv"
+dest_files=["res://Localization/Beanjot Localization.context.translation", "res://Localization/Beanjot Localization.en.translation", "res://Localization/Beanjot Localization.es.translation"]
+
+[params]
+
+compress=true
+delimiter=0

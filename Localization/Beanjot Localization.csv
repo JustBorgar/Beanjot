@@ -1,0 +1,37 @@
+keys,context,en,es
+File,MenuBar,File,Archivo
+Edit,MenuBar,Edit,Editar
+About,MenuBar,About,Ayuda
+Mode,MenuBar,Mode,Modo
+Theme,MenuBar,Theme,Tema
+Layout,MenuBar,Layout,Diseño
+New File,File,New File,Nuevo Archivo
+Import File,File,Import File,Importar Archivo
+Export File,File,Export File,Exportar Archivo
+Export File As,File,Export File As,Exportar Archivo Como
+Delete File,File,Delete File,Borrar Archivo
+Rename File,File,Rename File,Renombrar Archivo
+Wrap Text,File,Wrap Text,Envolver Texto
+Language,File,Language,Idioma
+Close Beanjot,File,Close Beanjot,Cerrar Beanjot
+Undo,Edit,Undo,Deshacer
+Redo,Edit,Redo,Rehacer
+Cut,Edit,Cut,Cortar
+Copy,Edit,Copy,Copiar
+Paste,Edit,Paste,Pegar
+Select All,Edit,Select All,Seleccionar Todo
+Deselect,Edit,Deselect,Deseleccionar
+Clear,Edit,Clear,Limpiar
+About Beanjot,About,About Beanjot,Acerca de Beanjot
+Attribution, About, Attribution, Atribución
+Writting,Mode,Writting,Escritura
+Coding,Mode,Coding,Código
+Run, Mode, Run, Ejecutar
+Caffeine,Theme,Caffeine,Cafeína
+Godette,Theme,Godette,Godette
+Bonfire,Theme,Bonfire,Fogonazo
+Paragon,Theme,Paragon,Dorito
+Cosmos,Theme,Cosmos,Cosmo
+Custom,Theme,Custom,Personalizado
+Classic,Layout,Classic,Clásico
+Modern,Layout,Modern,Moderno

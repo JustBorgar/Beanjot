@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://0051ao6d2jku"]
+[gd_scene load_steps=14 format=3 uid="uid://ragwhdioy2su"]
 
-[ext_resource type="Script" path="res://Scripts/Load.gd" id="1_erg4c"]
+[ext_resource type="Script" path="res://Scripts/LoadLayout.gd" id="1_0ooub"]
+[ext_resource type="Texture2D" uid="uid://c6vj5oxjcs62h" path="res://Assets/Feather Icons/file.svg" id="2_j4rnd"]
+[ext_resource type="Texture2D" uid="uid://coaxhegdk1hcj" path="res://Assets/Feather Icons/sliders.svg" id="3_ir7cv"]
+[ext_resource type="Texture2D" uid="uid://cry10hykeg28e" path="res://Assets/Feather Icons/info.svg" id="4_3j6jt"]
+[ext_resource type="Texture2D" uid="uid://34q0i5o1dnxc" path="res://Assets/Beanjot Logo.png" id="5_mux1v"]
+[ext_resource type="Texture2D" uid="uid://d22n1krkl867u" path="res://Assets/Feather Icons/code.svg" id="6_pjqsm"]
+[ext_resource type="Texture2D" uid="uid://clpgwa2b73ud6" path="res://Assets/Feather Icons/pen-tool.svg" id="7_uxf1u"]
+[ext_resource type="Texture2D" uid="uid://c16ngtg5gdwpj" path="res://Assets/Feather Icons/layout.svg" id="8_b330d"]
+[ext_resource type="Texture2D" uid="uid://gj1ioc4vac1i" path="res://Assets/Feather Icons/list.svg" id="9_rfqkt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqm5o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewym7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kuea5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8m4gb"]
 
 [node name="Text Editor" type="Control"]
 layout_mode = 3
@@ -9,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_erg4c")
+script = ExtResource("1_0ooub")
 
 [node name="Version" type="Label" parent="."]
 z_index = 1
@@ -24,7 +41,7 @@ offset_bottom = -3.0
 grow_vertical = 0
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 12
-text = "V0.7.0 (Beta)
+text = "V1.0.0
 "
 vertical_alignment = 1
 
@@ -47,3 +64,336 @@ theme_override_font_sizes/font_size = 12
 text = "Copyright © 2023 Caffeine Overflow
 "
 vertical_alignment = 1
+
+[node name="MenuBarItems" type="Node" parent="."]
+
+[node name="MenuBar" type="Node" parent="MenuBarItems"]
+
+[node name="File" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_right = 85.0
+offset_bottom = 31.0
+text = "File"
+icon = ExtResource("2_j4rnd")
+alignment = 0
+expand_icon = true
+item_count = 11
+popup/item_0/text = "New File"
+popup/item_0/id = 0
+popup/item_1/text = "Import File"
+popup/item_1/id = 1
+popup/item_2/text = "Export File"
+popup/item_2/id = 2
+popup/item_3/text = "Export File As"
+popup/item_3/id = 3
+popup/item_4/text = "Delete File"
+popup/item_4/id = 4
+popup/item_5/text = "Rename File"
+popup/item_5/id = 5
+popup/item_6/text = ""
+popup/item_6/id = 6
+popup/item_6/disabled = true
+popup/item_6/separator = true
+popup/item_7/text = "Wrap Text"
+popup/item_7/checkable = 1
+popup/item_7/id = 7
+popup/item_8/text = "Language"
+popup/item_8/id = 8
+popup/item_9/text = ""
+popup/item_9/id = 9
+popup/item_9/disabled = true
+popup/item_9/separator = true
+popup/item_10/text = "Close Beanjot"
+popup/item_10/id = 10
+
+[node name="Import" type="FileDialog" parent="MenuBarItems/MenuBar/File"]
+title = "Open a File"
+position = Vector2i(130, 230)
+size = Vector2i(336, 162)
+popup_window = true
+ok_button_text = "Abrir"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.txt", "*.gd", "*.lua")
+
+[node name="Export" type="FileDialog" parent="MenuBarItems/MenuBar/File"]
+position = Vector2i(75, 230)
+size = Vector2i(456, 162)
+popup_window = true
+access = 2
+filters = PackedStringArray("*.txt", "*.gd", "*.lua")
+
+[node name="Delete" type="ConfirmationDialog" parent="MenuBarItems/MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to delete this file? This action cannot be undone."
+dialog_autowrap = true
+
+[node name="Create" type="ConfirmationDialog" parent="MenuBarItems/MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to create a new file? All your unsaved changes will be lost."
+dialog_autowrap = true
+
+[node name="Close" type="ConfirmationDialog" parent="MenuBarItems/MenuBar/File"]
+position = Vector2i(200, 230)
+size = Vector2i(210, 187)
+popup_window = true
+dialog_text = "Are you sure you want to close Beanjot? All your unsaved changes will be lost."
+dialog_autowrap = true
+
+[node name="Restart" type="ConfirmationDialog" parent="MenuBarItems/MenuBar/File"]
+title = "Restart Required"
+position = Vector2i(200, 230)
+size = Vector2i(210, 213)
+popup_window = true
+ok_button_text = "Close"
+dialog_text = "A restart is required in order for your changes to take place. Wanna close Beanjot now? You can opt to do it later."
+dialog_autowrap = true
+
+[node name="Rename" type="Window" parent="MenuBarItems/MenuBar/File"]
+title = "Rename File..."
+position = Vector2i(180, 250)
+size = Vector2i(250, 60)
+visible = false
+unresizable = true
+always_on_top = true
+popup_window = true
+
+[node name="Input" type="LineEdit" parent="MenuBarItems/MenuBar/File/Rename"]
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 225.0
+offset_bottom = 50.0
+placeholder_text = "New File Name..."
+max_length = 50
+
+[node name="Edit" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_top = 35.0
+offset_right = 85.0
+offset_bottom = 66.0
+text = "Edit"
+icon = ExtResource("3_ir7cv")
+alignment = 0
+expand_icon = true
+item_count = 10
+popup/item_0/text = "Undo"
+popup/item_0/id = 0
+popup/item_1/text = "Redo"
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/id = 2
+popup/item_2/separator = true
+popup/item_3/text = "Cut"
+popup/item_3/id = 3
+popup/item_4/text = "Copy"
+popup/item_4/id = 4
+popup/item_5/text = "Paste"
+popup/item_5/id = 5
+popup/item_6/text = ""
+popup/item_6/id = 6
+popup/item_6/separator = true
+popup/item_7/text = "Select All"
+popup/item_7/id = 7
+popup/item_8/text = "Deselect"
+popup/item_8/id = 8
+popup/item_9/text = "Clear"
+popup/item_9/id = 9
+
+[node name="About" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_top = 70.0
+offset_right = 85.0
+offset_bottom = 101.0
+text = "About"
+icon = ExtResource("4_3j6jt")
+alignment = 0
+expand_icon = true
+item_count = 2
+popup/item_0/text = "About Beanjot"
+popup/item_0/id = 0
+popup/item_1/text = "Attribution"
+popup/item_1/id = 1
+
+[node name="AboutPopup" type="Window" parent="MenuBarItems/MenuBar/About"]
+title = "About Beanjot"
+position = Vector2i(50, 150)
+size = Vector2i(500, 300)
+visible = false
+unresizable = true
+always_on_top = true
+popup_window = true
+
+[node name="Icon" type="TextureRect" parent="MenuBarItems/MenuBar/About/AboutPopup"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 10.0
+offset_right = 455.0
+offset_bottom = 710.0
+grow_horizontal = 2
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("5_mux1v")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Text" type="RichTextLabel" parent="MenuBarItems/MenuBar/About/AboutPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = 10.0
+offset_right = 240.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 15
+theme_override_font_sizes/bold_font_size = 15
+theme_override_font_sizes/italics_font_size = 15
+theme_override_font_sizes/bold_italics_font_size = 15
+theme_override_font_sizes/mono_font_size = 15
+text = "Beanjot is a lightweight text editor made to simplify your writing and coding experience. It was made in a month (2 weeks ignoring procrastination on my part) as a side project to learn GDScript.
+
+Beanjot lets you effortlessly create and manage plain text documents, and although pretty limited, it lets you manage Lua, Luau and GDScript code as well.
+
+The project's source is available for free on github under the MIT license, so feel free to use it for your own projects."
+shortcut_keys_enabled = false
+
+[node name="AttributionPopup" type="Window" parent="MenuBarItems/MenuBar/About"]
+title = "Attribution"
+position = Vector2i(50, 150)
+size = Vector2i(500, 330)
+visible = false
+unresizable = true
+always_on_top = true
+popup_window = true
+
+[node name="Title" type="RichTextLabel" parent="MenuBarItems/MenuBar/About/AttributionPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -130.0
+offset_right = 240.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+bbcode_enabled = true
+text = "[center][b][color=salmon]Attribution[/color][/b][/center]"
+shortcut_keys_enabled = false
+
+[node name="Text" type="RichTextLabel" parent="MenuBarItems/MenuBar/About/AttributionPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -70.0
+offset_right = 240.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+bbcode_enabled = true
+text = "Beanjot makes use of the following third-party libraries and learning resources:
+
+- Feather Icon Library: [color=lightblue]
+[url=https://github.com/feathericons/feather]https://github.com/feathericons/feather[/url][/color]
+
+- Emilio Cappola's Text Editor Tutorial Series:
+[color=lightblue][url=https://www.youtube.com/@emi_cpl]https://www.youtube.com/@emi_cpl[/url][/color]"
+shortcut_keys_enabled = false
+
+[node name="Mode" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_top = 105.0
+offset_right = 85.0
+offset_bottom = 136.0
+text = "Mode"
+icon = ExtResource("6_pjqsm")
+expand_icon = true
+item_count = 2
+popup/item_0/text = "Writting"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Coding"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+
+[node name="Theme" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_top = 140.0
+offset_right = 85.0
+offset_bottom = 171.0
+text = "Theme"
+icon = ExtResource("7_uxf1u")
+expand_icon = true
+item_count = 6
+popup/item_0/text = "Caffeine"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Godette"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+popup/item_2/text = "Bonfire"
+popup/item_2/checkable = 1
+popup/item_2/id = 2
+popup/item_3/text = "Paragon"
+popup/item_3/checkable = 1
+popup/item_3/id = 3
+popup/item_4/text = "Cosmos"
+popup/item_4/checkable = 1
+popup/item_4/id = 4
+popup/item_5/text = "Custom"
+popup/item_5/checkable = 1
+popup/item_5/id = 5
+popup/item_5/disabled = true
+
+[node name="Layout" type="MenuButton" parent="MenuBarItems/MenuBar"]
+offset_top = 175.0
+offset_right = 85.0
+offset_bottom = 206.0
+text = "Layout"
+icon = ExtResource("8_b330d")
+expand_icon = true
+item_count = 2
+popup/item_0/text = "Classic"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Modern"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+
+[node name="LowerMenuBar" type="Node" parent="MenuBarItems"]
+
+[node name="Fold" type="Button" parent="MenuBarItems/LowerMenuBar"]
+offset_top = 546.0
+offset_right = 85.0
+offset_bottom = 570.0
+theme_override_constants/outline_size = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqm5o")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ewym7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kuea5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8m4gb")
+text = "Hide"
+icon = ExtResource("9_rfqkt")
+flat = true

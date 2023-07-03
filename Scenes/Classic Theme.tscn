@@ -1,7 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn1k3khkdg4d6"]
-
-[ext_resource type="Texture2D" uid="uid://cry10hykeg28e" path="res://Assets/Feather Icons/info.svg" id="1_gaqp1"]
-[ext_resource type="Texture2D" uid="uid://34q0i5o1dnxc" path="res://Assets/Beanjot Logo.png" id="1_kka2l"]
+[gd_scene format=3 uid="uid://bn1k3khkdg4d6"]
 
 [node name="Classic" type="Control"]
 layout_mode = 3
@@ -11,7 +8,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="MenuBackground" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -19,7 +16,14 @@ offset_bottom = 40.0
 grow_horizontal = 2
 color = Color(0, 0.113725, 0.239216, 1)
 
-[node name="MenuBackground" type="ColorRect" parent="."]
+[node name="MenuBar" type="HBoxContainer" parent="MenuBackground"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -29,304 +33,6 @@ offset_top = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0, 0.113725, 0.239216, 1)
-
-[node name="MenuBar" type="HBoxContainer" parent="MenuBackground"]
-layout_mode = 0
-offset_top = -560.0
-offset_right = 600.0
-offset_bottom = -520.0
-
-[node name="File" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "File
-"
-item_count = 11
-popup/item_0/text = "New File"
-popup/item_0/id = 0
-popup/item_1/text = "Import File"
-popup/item_1/id = 1
-popup/item_2/text = "Export File"
-popup/item_2/id = 2
-popup/item_3/text = "Export File As"
-popup/item_3/id = 3
-popup/item_4/text = "Delete File"
-popup/item_4/id = 4
-popup/item_5/text = "Rename File"
-popup/item_5/id = 5
-popup/item_6/text = ""
-popup/item_6/id = 6
-popup/item_6/disabled = true
-popup/item_6/separator = true
-popup/item_7/text = "Wrap Text"
-popup/item_7/checkable = 1
-popup/item_7/id = 7
-popup/item_8/text = "Language"
-popup/item_8/id = 8
-popup/item_9/text = ""
-popup/item_9/id = 9
-popup/item_9/disabled = true
-popup/item_9/separator = true
-popup/item_10/text = "Close Beanjot"
-popup/item_10/id = 10
-
-[node name="Import" type="FileDialog" parent="MenuBackground/MenuBar/File"]
-title = "Open a File"
-position = Vector2i(130, 230)
-size = Vector2i(336, 162)
-popup_window = true
-ok_button_text = "Abrir"
-file_mode = 0
-access = 2
-filters = PackedStringArray("*.txt", "*.gd", "*.lua")
-
-[node name="Export" type="FileDialog" parent="MenuBackground/MenuBar/File"]
-position = Vector2i(75, 230)
-size = Vector2i(456, 162)
-popup_window = true
-access = 2
-filters = PackedStringArray("*.txt", "*.gd", "*.lua")
-
-[node name="Delete" type="ConfirmationDialog" parent="MenuBackground/MenuBar/File"]
-position = Vector2i(200, 230)
-size = Vector2i(210, 187)
-popup_window = true
-dialog_text = "Are you sure you want to delete this file? This action cannot be undone."
-dialog_autowrap = true
-
-[node name="Create" type="ConfirmationDialog" parent="MenuBackground/MenuBar/File"]
-position = Vector2i(200, 230)
-size = Vector2i(210, 187)
-popup_window = true
-dialog_text = "Are you sure you want to create a new file? All your unsaved changes will be lost."
-dialog_autowrap = true
-
-[node name="Close" type="ConfirmationDialog" parent="MenuBackground/MenuBar/File"]
-position = Vector2i(200, 230)
-size = Vector2i(210, 187)
-popup_window = true
-dialog_text = "Are you sure you want to close Beanjot? All your unsaved changes will be lost."
-dialog_autowrap = true
-
-[node name="Restart" type="ConfirmationDialog" parent="MenuBackground/MenuBar/File"]
-position = Vector2i(200, 230)
-size = Vector2i(210, 187)
-popup_window = true
-dialog_text = "Are you sure you want to close Beanjot? All your unsaved changes will be lost."
-dialog_autowrap = true
-
-[node name="Rename" type="Window" parent="MenuBackground/MenuBar/File"]
-title = "Rename File..."
-position = Vector2i(180, 250)
-size = Vector2i(250, 60)
-visible = false
-unresizable = true
-always_on_top = true
-popup_window = true
-
-[node name="Input" type="LineEdit" parent="MenuBackground/MenuBar/File/Rename"]
-offset_left = 25.0
-offset_top = 10.0
-offset_right = 225.0
-offset_bottom = 50.0
-placeholder_text = "New File Name..."
-max_length = 50
-
-[node name="Edit" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "Edit"
-item_count = 10
-popup/item_0/text = "Undo"
-popup/item_0/id = 0
-popup/item_1/text = "Redo"
-popup/item_1/id = 1
-popup/item_2/text = ""
-popup/item_2/id = 2
-popup/item_2/separator = true
-popup/item_3/text = "Cut"
-popup/item_3/id = 3
-popup/item_4/text = "Copy"
-popup/item_4/id = 4
-popup/item_5/text = "Paste"
-popup/item_5/id = 5
-popup/item_6/text = ""
-popup/item_6/id = 6
-popup/item_6/separator = true
-popup/item_7/text = "Select All"
-popup/item_7/id = 7
-popup/item_8/text = "Deselect"
-popup/item_8/id = 8
-popup/item_9/text = "Clear"
-popup/item_9/id = 9
-
-[node name="About" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "About"
-icon = ExtResource("1_gaqp1")
-alignment = 0
-expand_icon = true
-item_count = 2
-popup/item_0/text = "About Beanjot"
-popup/item_0/id = 0
-popup/item_1/text = "Attribution"
-popup/item_1/id = 1
-
-[node name="AboutPopup" type="Window" parent="MenuBackground/MenuBar/About"]
-title = "About Beanjot"
-position = Vector2i(50, 150)
-size = Vector2i(500, 300)
-visible = false
-unresizable = true
-always_on_top = true
-popup_window = true
-
-[node name="Icon" type="TextureRect" parent="MenuBackground/MenuBar/About/AboutPopup"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -45.0
-offset_top = 10.0
-offset_right = 455.0
-offset_bottom = 710.0
-grow_horizontal = 2
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("1_kka2l")
-expand_mode = 1
-stretch_mode = 3
-
-[node name="Text" type="RichTextLabel" parent="MenuBackground/MenuBar/About/AboutPopup"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = 10.0
-offset_right = 240.0
-offset_bottom = 130.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 15
-theme_override_font_sizes/bold_font_size = 15
-theme_override_font_sizes/italics_font_size = 15
-theme_override_font_sizes/bold_italics_font_size = 15
-theme_override_font_sizes/mono_font_size = 15
-text = "Beanjot is a lightweight text editor designed to simplify your writing and coding experience, it was created in 2 weeks as a learning project to explore the capabilities of Godot.
-
-Beanjot lets you effortlessly create and manage plain text documents, and although pretty limited, it lets you manage Lua, Luau and GDScript code as well.
-
-The project's source is available for free on github under the MIT license, so feel free to use it for your own projects."
-shortcut_keys_enabled = false
-
-[node name="AttributionPopup" type="Window" parent="MenuBackground/MenuBar/About"]
-title = "Attribution"
-position = Vector2i(50, 150)
-size = Vector2i(500, 330)
-visible = false
-unresizable = true
-always_on_top = true
-popup_window = true
-
-[node name="Title" type="RichTextLabel" parent="MenuBackground/MenuBar/About/AttributionPopup"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -130.0
-offset_right = 240.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-bbcode_enabled = true
-text = "[center][b][color=salmon]Attribution[/color][/b][/center]"
-shortcut_keys_enabled = false
-
-[node name="Text" type="RichTextLabel" parent="MenuBackground/MenuBar/About/AttributionPopup"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -70.0
-offset_right = 240.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
-bbcode_enabled = true
-text = "Beanjot makes use of the following third-party libraries and learning resources:
-
-- Feather Icon Library: [color=lightblue]
-[url=https://github.com/feathericons/feather]https://github.com/feathericons/feather[/url][/color]
-
-- Emilio Cappola's Text Editor Tutorial Series:
-[color=lightblue][url=https://www.youtube.com/@emi_cp]https://www.youtube.com/@emi_cpl[/url][/color]"
-shortcut_keys_enabled = false
-
-[node name="Mode" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "Mode"
-item_count = 2
-popup/item_0/text = "Writting"
-popup/item_0/checkable = 1
-popup/item_0/id = 0
-popup/item_1/text = "Coding"
-popup/item_1/checkable = 1
-popup/item_1/id = 1
-metadata/url = ""
-
-[node name="Theme" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "Theme"
-item_count = 6
-popup/item_0/text = "Caffeine"
-popup/item_0/checkable = 1
-popup/item_0/id = 0
-popup/item_1/text = "Godette"
-popup/item_1/checkable = 1
-popup/item_1/id = 1
-popup/item_2/text = "Bonfire"
-popup/item_2/checkable = 1
-popup/item_2/id = 2
-popup/item_3/text = "Paragon"
-popup/item_3/checkable = 1
-popup/item_3/id = 3
-popup/item_4/text = "Night"
-popup/item_4/checkable = 1
-popup/item_4/id = 4
-popup/item_5/text = "Custom"
-popup/item_5/checkable = 1
-popup/item_5/id = 5
-popup/item_5/disabled = true
-
-[node name="Layout" type="MenuButton" parent="MenuBackground/MenuBar"]
-layout_mode = 2
-text = "Layout"
-expand_icon = true
-item_count = 2
-popup/item_0/text = "Classic"
-popup/item_0/checkable = 1
-popup/item_0/id = 0
-popup/item_1/text = "Modern"
-popup/item_1/checkable = 1
-popup/item_1/id = 1
 
 [node name="TextEdit" type="CodeEdit" parent="."]
 layout_mode = 1

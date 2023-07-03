@@ -1,32 +1,57 @@
 extends Control
 
+"""
+Hey there, thanks for checking out my little text editor. This is basically the first actual
+program I make coming from roblox luau, so don't expect the most clean/functional thing ever.
+
+Sorry if the code isn't easy to read, i'm still trying to find a code structure i'm comfortable
+with in godot, so i'm not entirely happy with how this turned out myself but eh, at least it
+works (might come back to clean it up later if I find a way to split the MenuBar functions
+without passing a morbillion parameters or doing something hacky (I'll probably implement
+a custom WaitForChild("Path") node or something like that later)).
+
+Credits can be found in the attribution thing, and the page readme probably,
+once I set it up. There's also a TODO thing below with stuff I might come back
+to add later if there's ever demand for this, and yup, that's pretty much about
+it, thanks for reading, feel free to do whatever you want with the source code.
+"""
+
 ##### Variables #####
 
 #Core
 @warning_ignore("get_node_default_without_onready") var text_edit = $TextEdit
-@warning_ignore("get_node_default_without_onready") var file_button = $MenuBackground/MenuBar/File
-@warning_ignore("get_node_default_without_onready") var edit_button = $MenuBackground/MenuBar/Edit
-@warning_ignore("get_node_default_without_onready") var about_button = $MenuBackground/MenuBar/About
-@warning_ignore("get_node_default_without_onready") var mode_button = $MenuBackground/MenuBar/Mode
-@warning_ignore("get_node_default_without_onready") var theme_button = $MenuBackground/MenuBar/Theme
-@warning_ignore("get_node_default_without_onready") var layout_button = $MenuBackground/MenuBar/Layout 
+@warning_ignore("get_node_default_without_onready") var menu_background = $MenuBackground
+@warning_ignore("get_node_default_without_onready") var menu_bar = menu_background.get_node("MenuBar")
+@warning_ignore("get_node_default_without_onready") var menu_lowerbar = menu_background.get_node("LowerMenuBar")
+@warning_ignore("get_node_default_without_onready") var fold_button = menu_lowerbar.get_node("Fold") if menu_lowerbar else null
+@warning_ignore("get_node_default_without_onready") var bj_version = get_parent().get_node("Version")
+
+#MenuBar
+@warning_ignore("get_node_default_without_onready") var file_button = menu_bar.get_node("File")
+@warning_ignore("get_node_default_without_onready") var edit_button = menu_bar.get_node("Edit")
+@warning_ignore("get_node_default_without_onready") var about_button = menu_bar.get_node("About")
+@warning_ignore("get_node_default_without_onready") var mode_button = menu_bar.get_node("Mode")
+@warning_ignore("get_node_default_without_onready") var theme_button = menu_bar.get_node("Theme")
+@warning_ignore("get_node_default_without_onready") var layout_button = menu_bar.get_node("Layout")
 
 #File
-@warning_ignore("get_node_default_without_onready") var import = $MenuBackground/MenuBar/File/Import
-@warning_ignore("get_node_default_without_onready") var export = $MenuBackground/MenuBar/File/Export
-@warning_ignore("get_node_default_without_onready") var delete = $MenuBackground/MenuBar/File/Delete
-@warning_ignore("get_node_default_without_onready") var close = $MenuBackground/MenuBar/File/Close
-@warning_ignore("get_node_default_without_onready") var restart = $MenuBackground/MenuBar/File/Restart
-@warning_ignore("get_node_default_without_onready") var rename = $MenuBackground/MenuBar/File/Rename
-@warning_ignore("get_node_default_without_onready") var create = $MenuBackground/MenuBar/File/Create
-@warning_ignore("get_node_default_without_onready") var renameinput = $MenuBackground/MenuBar/File/Rename/Input
+@warning_ignore("get_node_default_without_onready") var import = file_button.get_node("Import")
+@warning_ignore("get_node_default_without_onready") var export = file_button.get_node("Export")
+@warning_ignore("get_node_default_without_onready") var delete = file_button.get_node("Delete")
+@warning_ignore("get_node_default_without_onready") var close = file_button.get_node("Close")
+@warning_ignore("get_node_default_without_onready") var restart = file_button.get_node("Restart")
+@warning_ignore("get_node_default_without_onready") var rename = file_button.get_node("Rename")
+@warning_ignore("get_node_default_without_onready") var create = file_button.get_node("Create")
+@warning_ignore("get_node_default_without_onready") var renameinput = rename.get_node("Input")
+
+#About
+@warning_ignore("get_node_default_without_onready") var about = about_button.get_node("AboutPopup")
+@warning_ignore("get_node_default_without_onready") var attribution = about_button.get_node("AttributionPopup")
+
+#Submenus
 var lang_submenu: PopupMenu = null
 var mode_submenu: PopupMenu = null
 var runcode_submenu: PopupMenu = null
-
-#About
-@warning_ignore("get_node_default_without_onready") var about = $MenuBackground/MenuBar/About/AboutPopup
-@warning_ignore("get_node_default_without_onready") var attribution = $MenuBackground/MenuBar/About/AttributionPopup
 
 #Script
 var supported_filetypes := ["txt", "lua", "gd"]
@@ -38,29 +63,29 @@ var highlight_manager = null
 var last_popup = null
 var last_popup_connection = null
 var last_popup_callable = null
+var folded = false
 
 """
-TODO:
-_Set the mode/language to the filetype the user opens (if they opened a file).
-_Store user's resolution (not just viewport, popups too).
-_Let the user save their file before closing beanjot.
-_(Idk how to deal with multi-line text) Translate credits/about.
-
 BUGS:
-_Layout change not working anymore, might have to do with data loading twice.
-_When you open beanjot with a file the file path isn't shown in the program's name.
-_Data is being requested twice and idk why.
-_ ¯/_(ツ)_/¯ Lambdas have this annoying bug where if they have no parameters they'll break the entire program, but if you leave them in the debugger complains, and when they do break there's no trace left of where exactly, and sometimes the bug happens anyways and there's no clear repro, so the fix is to never use godot's lambdas again.
+_TextEdit doesn't scale the text properly sometimes.
+_Program name may not show the file name (this is an engine bug I tried to fix with a yield, but without get_title() method for DisplayServer there's no consistent fix).
+_ ¯/_(ツ)_/¯ using lambdas seems to make the program crash randomly, with no repro, and no info in the debugger to fix it, so I used them pretty sparingly.
 
 TODO POST RELEASE/MAYBE, IF I FEEL LIKE IT:
-_Refactor the code again and split it across multiple nodes to avoid having a wall of 1k lines.
-_The current themes implementation is trash, do it the built in way.
-_Add strict typing and make the code more consistent (get rid of all the PascalCase too).
+_Allow editing multiple files at once like vscode and notepad++ do.
 _Add more customization (custom theme, custom font/font sizes, etc).
-_Add search functionality and borderless/fullscreen mode.
-_Make the about/credits section less ugly, I don't like how it looks rn.
+_Ask the user if they want to save their text or not when closing beanjot.
+_Make the MenuBar in the modern layout bigger when the user increases the resolution.
+_MenuBar functions make main hard to read, split them in their own sub-scripts (Gave up atm).
+_Make the handle_extension func use enums instead of raw numbers, and make the the filetypes variable grab them from the node or the node from the code (all from 1 place).
 _Add additional modes (For example a QuickNotes mode (remote trello), a Localizar mode (custom zip with a source text and it's localizations), a DataManager mode (would allow making CSV/JSON files using a higher level interface), etc).
-_Add support for CSS, HTML, RES, TSCN, CSV, Java files (if code_edit allows me to, gave me issues with lua already).
+_Add support for CSS, HTML, RES, TSCN, CSV, Java files (if I can, struggled a bit with lua already).
+_Add strict typing and make the code more consistent (get rid of all the PascalCase too).
+_Make the about/credits section less ugly, I don't like how it looks rn.
+_Translate credits/about (Idk how to deal with multi-line text atm).
+_The current themes implementation is trash, do it the built in way.
+_Add search functionality and borderless/fullscreen mode.
+_Store user's popup resolution.
 """
 
 ##### Code #####
@@ -76,9 +101,90 @@ func setup_misc():
 	#Diable AutoQuit
 	get_tree().set_auto_accept_quit(false)
 	
-	#Set Initial Title
-	DisplayServer.window_set_title(app_name + " - " + file_name)
+	#Set Initial Title/Resolution
+	get_tree().create_timer(0.1).timeout.connect(func(): #Without yield it doesn't change at all
+		get_tree().create_timer(1).timeout.connect(func():
+			DisplayServer.window_set_title(app_name + " - " + file_name)
+		)
+		DisplayServer.window_set_title(app_name + " - " + file_name)
+	)
+	var res = data_manager.editor_resolution.split_floats("x")
+	DisplayServer.window_set_size(Vector2(res[0], res[1]))
+	get_tree().get_root().size_changed.connect(func():
+		var new_res = DisplayServer.window_get_size()
+		data_manager.editor_resolution = str(new_res[0]) + "x" + str(new_res[1])
+	)
 	
+	#Setup Foldable MenuBar
+	if fold_button:
+		var fold_pressed = func(skip = false):
+			
+			#Add bar items
+			var buttons = []
+			for button in menu_bar.get_children():
+				buttons.append(button)
+			for button in menu_lowerbar.get_children():
+				buttons.append(button)
+			
+			#Folded
+			if (folded == false):
+				folded = true
+				
+				#Fix bar items size
+				for button in buttons:
+					button.clip_text = true
+				
+				#Tween
+				if not skip: #Play tween
+					var fold_tween = create_tween() #Background
+					var fold_tween2 = create_tween() #TextEdit
+					var fold_tween3 = create_tween() #Version
+					fold_tween.tween_property(menu_background, "offset_right", 30, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween2.tween_property(text_edit, "offset_left", 30, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween3.tween_property(bj_version, "visible_ratio", 0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween.play()
+					fold_tween2.play()
+					fold_tween3.play()
+				else: #Set directly
+					menu_background.offset_right = 30
+					text_edit.offset_left = 30
+					bj_version.visible_ratio = 0
+				
+			#Unfolded
+			else:
+				
+				#Fix bar items size
+				for button in buttons:
+					button.clip_text = false
+				
+				#Tween
+				if not skip:
+					var fold_tween = create_tween() #Background
+					var fold_tween2 = create_tween() #TextEdit
+					var fold_tween3 = create_tween() #Version
+					fold_tween.tween_property(menu_background, "offset_right", 85, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween2.tween_property(text_edit, "offset_left", 85, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween3.tween_property(bj_version, "visible_ratio", 1, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+					fold_tween.play()
+					fold_tween2.play()
+					fold_tween3.play()
+				else:
+					menu_background.offset_right = 85
+					text_edit.offset_left = 85
+					bj_version.visible_ratio = 1
+				folded = false
+			data_manager.editor_bar_folded = folded #Save
+		fold_button.pressed.connect(fold_pressed) #Call
+		if folded != data_manager.editor_bar_folded: #Apply saved
+			fold_pressed.call(true)
+		
+	
+	#Setup clickable links
+	for textlabel in attribution.get_children():
+		if textlabel.name == "Text":
+			textlabel.meta_clicked.connect(func(meta): #Link clicked
+				OS.shell_open(meta) #Open
+			)
 	
 	#Check layout
 	layout_button.get_popup().set_item_checked(0 if data_manager.editor_layout == data_manager.Editor_Layouts.Classic else 1, true)
@@ -169,12 +275,16 @@ func save_data():
 ## Handles file extensions
 func handle_extension(path):
 	var extension = path.get_extension()
-	if extension != "txt" and supported_filetypes.has(extension):
-		if !file_button.get_popup().is_item_checked(7):
-			file_pressed("Code Mode", 7)
+	if extension == "lua" or extension == "gd": #If filetype isn't txt, enable code mode
+		if !mode_button.get_popup().is_item_checked(UserData.Editor_Mode.Coding): #If code mode isn't already enabled, enable
+			mode_pressed(UserData.Editor_Mode.Coding)
+		if extension == "gd": #Set highlighting to gdscript (I should use enums but I wanna finish this today)
+			submode_pressed(0)
+		elif extension == "lua": #Set highlighting to lua
+			submode_pressed(1)
 	elif extension == "txt":
-		if file_button.get_popup().is_item_checked(7):
-			file_pressed("Code Mode", 7)
+		if !mode_button.get_popup().is_item_checked(UserData.Editor_Mode.Writing): #If writing mode isn't already enabled, enable
+			mode_pressed(UserData.Editor_Mode.Writing)
 
 ''' Utils '''
 
@@ -315,6 +425,7 @@ func file_pressed(item_name, id = null, apply_loaded = null):
 		
 		#Close Beanjot
 		"Close Beanjot":
+			save_data() #Saves data before you quit
 			if last_path == null: #Unexported file
 				if text_edit.text == "": #Nothing written, close
 					get_tree().quit()
@@ -450,7 +561,7 @@ func submode_pressed(item_id):
 		#Lua
 		data_manager.Editor_Programming_Languages.Lua:
 			highlight_manager.Highlight_Text(text_edit, item_id)
-			url = "https://luau-lang.org/demo?" #lua is more widely used but the luau highlighting is prob more accurate
+			url = "https://luau-lang.org/demo?" #lua is more widely used but the luau highlighting is prob more accurate bc that's the one I use
 		
 	#Save Last Language
 	data_manager.editor_programming_language = item_id
@@ -588,6 +699,12 @@ func language_pressed(item_id):
 
 ''' Signals '''
 
+## Custom Quit ##
+
+func _notification(notif):
+	if notif == NOTIFICATION_WM_CLOSE_REQUEST:
+		file_pressed("Close Beanjot")
+
 ## Ready ##
 
 func _init():
@@ -644,10 +761,3 @@ func _init():
 		language_pressed(id)
 	)
 	language_pressed(data_manager.editor_language)
-
-## Custom Quit ##
-
-func _notification(notif):
-	if notif == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data() #Saves data before you quit
-		file_pressed("Close Beanjot")

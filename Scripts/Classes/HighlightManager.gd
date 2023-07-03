@@ -116,5 +116,6 @@ func Highlight_Text(code_edit: CodeEdit, language: Variant = null):
 		_:
 			#Remove highlighter
 			code_edit.draw_tabs = false
+			code_edit.indent_size = 4
 			code_edit.syntax_highlighter = null
 	

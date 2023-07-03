@@ -18,7 +18,6 @@ var default_path = DEFAULT_DIRECTORY + DEFAULT_NAME + "." + str(data_type) #Curr
 
 #Requests to load user's data, returns it's contents, the template, or null.
 func LoadData(template = null, path = default_path):
-	print("data requested")
 	if data_type == DATA_TYPES.Resource: #Resource
 		if ResourceLoader.exists(path):
 			return load(path)
@@ -40,7 +39,6 @@ func LoadData(template = null, path = default_path):
 
 #Requests to save user's data, if data exists it overwrites it, otherwise it creates it.
 func SaveData(data, path = default_path):
-	print("attempted to save data")
 	if data_type == DATA_TYPES.Resource: #Resource
 		ResourceSaver.save(data, path)
 	elif data_type == DATA_TYPES.JSON: #JSON

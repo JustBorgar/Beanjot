@@ -23,10 +23,10 @@ Select All,Edit,Select All,Seleccionar Todo
 Deselect,Edit,Deselect,Deseleccionar
 Clear,Edit,Clear,Limpiar
 About Beanjot,About,About Beanjot,Acerca de Beanjot
-Attribution, About, Attribution, Atribución
+Attribution,About,Attribution,Atribución
 Writting,Mode,Writting,Escritura
 Coding,Mode,Coding,Código
-Run, Mode, Run, Ejecutar
+Run, Mode,Run,Ejecutar
 Caffeine,Theme,Caffeine,Cafeína
 Godette,Theme,Godette,Godette
 Bonfire,Theme,Bonfire,Fogonazo
@@ -35,3 +35,4 @@ Cosmos,Theme,Cosmos,Cosmo
 Custom,Theme,Custom,Personalizado
 Classic,Layout,Classic,Clásico
 Modern,Layout,Modern,Moderno
+Hide,Modern,Hide,Mostr.

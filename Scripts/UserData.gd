@@ -1,5 +1,5 @@
 class_name UserData
-extends Resource
+extends Node
 
 ##### Variables #####
 
@@ -17,21 +17,29 @@ const Editor_Layouts = {Classic = "res://Scenes/Classic Theme.tscn", Modern = "r
 @export var editor_language: int = Editor_Languages.English
 @export var editor_programming_language: int = Editor_Programming_Languages.GDScript
 @export var editor_text_wrapped: bool = true
+@export var editor_resolution: String = str(ProjectSettings.get_setting("display/window/size/viewport_width")) + "x" + str(ProjectSettings.get_setting("display/window/size/viewport_height"))
+@export var editor_bar_folded: bool = false
 
 var _data_manager = DataManager.new()
 
 ##### Code #####
 
+#Gets the node's "exported" variables
+func get_exports():
+	var properties = self.get_property_list()
+	var to_return = []
+	for index in range(properties.size()):
+		if ("editor_" in properties[index].name) and not ("description" in properties[index].name): #Prob shouldn't have used the editor keyword but i'm not changing it by now
+			to_return.append(properties[index].name)
+	return to_return
+
 #Init
 func _init():
 	var data = _Load()
 	if data:
-		editor_mode = data["editor_mode"]
-		editor_layout = data["editor_layout"]
-		editor_theme = data["editor_theme"]
-		editor_language = data["editor_language"]
-		editor_programming_language = data["editor_programming_language"]
-		editor_text_wrapped = data["editor_text_wrapped"]
+		var exports = get_exports()
+		for value in exports: #For each exported var, set the var to the loaded value or its own value
+			self[value] = data[value] if data.has(value) else self[value] #Wasted 30 minutes trying to figure out why var = A or B returned a bool, then I realized this isn't lua (also note to self, find_key doesn't work, it'll always return null)
 
 #Load
 func _Load():
@@ -45,13 +53,10 @@ func _Load():
 func Save():
 	match(_data_manager.data_type):
 		_data_manager.DATA_TYPES.JSON:
-			_data_manager.SaveData({ #Saves data as JSON
-				"editor_mode" = editor_mode,
-				"editor_layout" = editor_layout,
-				"editor_theme" = editor_theme,
-				"editor_language" = editor_language,
-				"editor_programming_language" = editor_programming_language,
-				"editor_text_wrapped" = editor_text_wrapped
-			})
+			var to_save = {}
+			var exports = get_exports()
+			for value in exports: #For each exported var
+				to_save[value] = self[value] #Store it
+			_data_manager.SaveData(to_save) #Saves data as JSON
 		_data_manager.DATA_TYPES.Resource:
 			_data_manager.SaveData(self) #Passes the script iself to save

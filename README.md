@@ -12,6 +12,13 @@ This is licensed under MIT, so feel free to do with it as you please. If you spo
 with the syntax highlighting, etc. feel free to let me know (maybe i'll fix it, maybe I won't, this was
 just a learning project so don't expect a lot of support).
 
+## Screenshots
+<img src="https://github.com/JustBorgar/Beanjot/assets/134341430/20c7f61a-c6a0-4ffa-80b3-e63528514660" width="375" height="350">
+<img src="https://github.com/JustBorgar/Beanjot/assets/134341430/e9e1b013-d637-4829-a066-f476526300bd" width="450" height="350">
+<img src="https://github.com/JustBorgar/Beanjot/assets/134341430/7c2ac868-2fc8-4d32-b311-00e1ae7fe96d" width="375" height="350">
+<img src="https://github.com/JustBorgar/Beanjot/assets/134341430/fb7715fa-9a93-4058-ac49-1296b45bd71b" width="375" height="350">
+
+
 ## Some Features
 * Modern/Classic layouts, in case you liked how notepad looked.
 * A couple themes to customize the program to your liking.

@@ -1,16 +1,11 @@
 # Beanjot Text/Code Editor
 
-Hey there, thanks for checking out my little text editor. It's pretty much the first actual
-program I make coming from roblox luau, so don't expect the most clean/functional thing ever. It's mostly
-made as a way to practice gdscript before actually starting work on an actual game.
+Hey there, thanks for checking out my little text editor. This is the first godot project I made back when
+I was learning gdscript (with my only previous experience being with luau), so don't expect the most
+clean/functional piece of software ever, it was mostly made for practicing.
 
-Sorry ahead of time if the code isn't easy to read, i'm still trying to find a code structure i'm comfortable
-with in godot, so i'm not entirely happy with how the code is organized but eh, at least it
-works (I might come back to clean it up later, but for now it is what it is).
-
-This is licensed under MIT, so feel free to do with it as you please. If you spot any bugs, innacuracies
-with the syntax highlighting, etc. feel free to let me know (maybe i'll fix it, maybe I won't, this was
-just a learning project so don't expect a lot of support).
+This is licensed under MIT, so feel free to do with it as you please. I have no plans to maintain this, so
+if you spot any bugs, innacuracies with the syntax highlighting, etc. you'll need to fix them yourself.
 
 ## Screenshots
 <img src="https://github.com/JustBorgar/Beanjot/assets/134341430/20c7f61a-c6a0-4ffa-80b3-e63528514660" width="375" height="350">
@@ -34,7 +29,7 @@ just a learning project so don't expect a lot of support).
 * Q: Why is the filesize 69mb? that's too big!
   * A: That's the engine's filesize, the actual project file is around 2mb. I have no experience recompiling the engine to reduce it, so yeah, sorry about that.
 * Q: Who's Caffeine Overflow? Repo is under a different name.
-  * A: CF is an alias/brand name I use for consistency as I change my usernames often.
+  * A: CF is an alias/brand name I use (mostly for games) for consistency as I change my usernames often.
 * Q: How do I access the project file?
   * A: Download the file from github, move it into your godot projects folder in documents, and open it with godot 4.0.2 (in the unlikely case you have any issues try the 32 bits version, that's the one it was made on)
 * Q: How do I download the program?
@@ -42,7 +37,7 @@ just a learning project so don't expect a lot of support).
 * Q: What can I use this for? Do I need to provide attribution?
   * A: Use the source files as you please, attribution is appreciated but not required.
 * Q: I found a bug!
-  * A: Feel free to report it, but as stated earlier, no promises it'll be fixed.
+  * A: As stated earlier, I don't plan to maintain this, you can fix it yourself.
 
 ## Attribution
 Beanjot makes use of the following third-party libraries and learning resources:
